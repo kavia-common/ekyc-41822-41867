@@ -8,7 +8,13 @@ FastAPI backend providing EKYC features: auth with JWT, RBAC, users management, 
 
    pip install -r requirements.txt
 
-2. Copy .env.example to .env and set variables (JWT_SECRET_KEY, DATABASE_URL, etc.). The orchestrator will inject env automatically in deployed environments.
+2. Create a .env file (one is provided at BackendAPIService/.env in this repo as a starter) and set variables:
+   - DATABASE_URL (e.g., postgresql+psycopg2://appuser:dbuser123@localhost:5000/myapp)
+   - JWT_SECRET_KEY (e.g., change-me)
+   - PGFRONTEND_URL (e.g., http://localhost:3000) for CORS
+   - STORAGE_DIR (e.g., ./storage)
+   - PGHEALTHCHECK_PATH (e.g., /health)
+   The orchestrator will inject env automatically in deployed environments.
 
 3. Run the API:
 
@@ -22,4 +28,5 @@ FastAPI backend providing EKYC features: auth with JWT, RBAC, users management, 
 
 - Default admin user "admin" with password "admin123" is created on first start. Change the password immediately using the admin endpoints.
 - Local storage for uploads is under STORAGE_DIR (default ./storage).
-- Health check path is configurable via PGHEALTHCHECK_PATH (default "/").
+- Health check path is configurable via PGHEALTHCHECK_PATH (default "/health" as set in the provided .env).
+- CORS is controlled via PGFRONTEND_URL; set it to your WebFrontend origin (e.g., http://localhost:3000).
